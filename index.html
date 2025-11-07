@@ -103,6 +103,7 @@
             transition: all 0.3s ease;
             font-family: 'Comic Sans MS', cursive;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
         }
 
         .option-button:hover {
@@ -221,26 +222,31 @@
 
     <script>
         const words = [
-            { word: 'bil', emoji: '🚗', distractors: ['boll', 'bål', 'bal'] },
-            { word: 'hund', emoji: '🐕', distractors: ['hand', 'hus', 'häst'] },
-            { word: 'katt', emoji: '🐱', distractors: ['kaka', 'kåta', 'kate'] },
-            { word: 'sol', emoji: '☀️', distractors: ['sil', 'säl', 'syl'] },
-            { word: 'båt', emoji: '⛵', distractors: ['bät', 'bot', 'bat'] },
-            { word: 'boll', emoji: '⚽', distractors: ['bil', 'böl', 'bul'] },
-            { word: 'äpple', emoji: '🍎', distractors: ['apple', 'äple', 'epple'] },
-            { word: 'hus', emoji: '🏠', distractors: ['mus', 'hys', 'has'] },
-            { word: 'träd', emoji: '🌳', distractors: ['tråd', 'tröd', 'trad'] },
-            { word: 'fisk', emoji: '🐟', distractors: ['fusk', 'risk', 'disk'] },
-            { word: 'bok', emoji: '📖', distractors: ['bak', 'buk', 'bok'] },
-            { word: 'fågel', emoji: '🐦', distractors: ['fogel', 'fågal', 'fögel'] },
-            { word: 'blomma', emoji: '🌸', distractors: ['bloma', 'blomba', 'blumma'] },
-            { word: 'glass', emoji: '🍦', distractors: ['glas', 'gläss', 'glaas'] },
-            { word: 'mus', emoji: '🐭', distractors: ['hus', 'mas', 'mys'] },
-            { word: 'ko', emoji: '🐮', distractors: ['ku', 'kå', 'kö'] },
-            { word: 'get', emoji: '🐐', distractors: ['gät', 'jet', 'gat'] },
-            { word: 'bröd', emoji: '🍞', distractors: ['bred', 'bröt', 'bryd'] },
-            { word: 'ost', emoji: '🧀', distractors: ['öst', 'ust', 'ast'] },
-            { word: 'penna', emoji: '✏️', distractors: ['pena', 'panna', 'pänna'] }
+            { word: 'bil', emoji: '🚗', distractors: ['båt', 'buss', 'cykel'] },
+            { word: 'hund', emoji: '🐕', distractors: ['katt', 'bil', 'båt'] },
+            { word: 'katt', emoji: '🐱', distractors: ['hund', 'mus', 'fisk'] },
+            { word: 'sol', emoji: '☀️', distractors: ['måne', 'stjärna', 'moln'] },
+            { word: 'båt', emoji: '⛵', distractors: ['bil', 'tåg', 'plan'] },
+            { word: 'boll', emoji: '⚽', distractors: ['kub', 'ring', 'stjärna'] },
+            { word: 'äpple', emoji: '🍎', distractors: ['banan', 'päron', 'apelsin'] },
+            { word: 'hus', emoji: '🏠', distractors: ['träd', 'bil', 'båt'] },
+            { word: 'träd', emoji: '🌳', distractors: ['blomma', 'gräs', 'buske'] },
+            { word: 'fisk', emoji: '🐟', distractors: ['haj', 'val', 'krabba'] },
+            { word: 'bok', emoji: '📖', distractors: ['penna', 'sudd', 'linjal'] },
+            { word: 'fågel', emoji: '🐦', distractors: ['katt', 'hund', 'mus'] },
+            { word: 'blomma', emoji: '🌸', distractors: ['träd', 'gräs', 'buske'] },
+            { word: 'glass', emoji: '🍦', distractors: ['kaka', 'godis', 'choklad'] },
+            { word: 'mus', emoji: '🐭', distractors: ['katt', 'hund', 'fågel'] },
+            { word: 'ko', emoji: '🐮', distractors: ['häst', 'får', 'gris'] },
+            { word: 'get', emoji: '🐐', distractors: ['ko', 'häst', 'får'] },
+            { word: 'bröd', emoji: '🍞', distractors: ['smör', 'ost', 'skinka'] },
+            { word: 'ost', emoji: '🧀', distractors: ['bröd', 'smör', 'mjölk'] },
+            { word: 'penna', emoji: '✏️', distractors: ['sudd', 'linjal', 'bok'] },
+            { word: 'buss', emoji: '🚌', distractors: ['bil', 'tåg', 'båt'] },
+            { word: 'cykel', emoji: '🚲', distractors: ['bil', 'buss', 'tåg'] },
+            { word: 'banan', emoji: '🍌', distractors: ['äpple', 'päron', 'apelsin'] },
+            { word: 'pizza', emoji: '🍕', distractors: ['hamburgare', 'korv', 'pasta'] },
+            { word: 'måne', emoji: '🌙', distractors: ['sol', 'stjärna', 'moln'] }
         ];
 
         let currentWord;
@@ -293,19 +299,19 @@
 
                 // Highlight correct answer
                 allButtons.forEach(btn => {
-                    if (btn.textContent === currentWord.word) {
+                    if (btn.textContent.toLowerCase() === currentWord.word) {
                         btn.classList.add('correct');
                     }
                 });
             } else {
                 button.classList.add('wrong');
-                document.getElementById('feedback').textContent = '❌ Försök igen! Det var ' + currentWord.word;
+                document.getElementById('feedback').textContent = '❌ Försök igen! Det var ' + currentWord.word.toUpperCase();
                 document.getElementById('feedback').className = 'feedback wrong';
                 streak = 0;
 
                 // Show correct answer
                 allButtons.forEach(btn => {
-                    if (btn.textContent === currentWord.word) {
+                    if (btn.textContent.toLowerCase() === currentWord.word) {
                         btn.classList.add('correct');
                     }
                 });

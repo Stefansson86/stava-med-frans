@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stava med Frans - Lär dig stava!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 15px;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .score-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .image-container {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-emoji {
+            font-size: 8em;
+            animation: bounce 1s ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 30px 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Comic Sans MS', cursive;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .option-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .option-button:active {
+            transform: translateY(-2px);
+        }
+
+        .option-button.correct {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        .option-button.wrong {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .feedback {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            min-height: 40px;
+            margin-top: 20px;
+        }
+
+        .feedback.correct {
+            color: #56ab2f;
+        }
+
+        .feedback.wrong {
+            color: #eb3349;
+        }
+
+        .new-game-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            font-family: 'Comic Sans MS', cursive;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .new-game-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 480px) {
+            .game-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .image-emoji {
+                font-size: 6em;
+            }
+
+            .option-button {
+                padding: 20px 10px;
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>🌟 Stava med Frans 🌟</h1>
+
+        <div class="score-board">
+            <div class="score-item">
+                <div class="score-label">Poäng</div>
+                <div class="score-value" id="score">0</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">I rad</div>
+                <div class="score-value" id="streak">0</div>
+            </div>
+        </div>
+
+        <div class="image-container">
+            <div class="image-emoji" id="image">🚗</div>
+        </div>
+
+        <div class="options-container" id="options">
+            <!-- Options will be inserted here by JavaScript -->
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <button class="new-game-btn" onclick="newRound()">Nästa ord ➡️</button>
+    </div>
+
+    <script>
+        const words = [
+            { word: 'bil', emoji: '🚗', distractors: ['boll', 'bål', 'bal'] },
+            { word: 'hund', emoji: '🐕', distractors: ['hand', 'hus', 'häst'] },
+            { word: 'katt', emoji: '🐱', distractors: ['kaka', 'kåta', 'kate'] },
+            { word: 'sol', emoji: '☀️', distractors: ['sil', 'säl', 'syl'] },
+            { word: 'båt', emoji: '⛵', distractors: ['bät', 'bot', 'bat'] },
+            { word: 'boll', emoji: '⚽', distractors: ['bil', 'böl', 'bul'] },
+            { word: 'äpple', emoji: '🍎', distractors: ['apple', 'äple', 'epple'] },
+            { word: 'hus', emoji: '🏠', distractors: ['mus', 'hys', 'has'] },
+            { word: 'träd', emoji: '🌳', distractors: ['tråd', 'tröd', 'trad'] },
+            { word: 'fisk', emoji: '🐟', distractors: ['fusk', 'risk', 'disk'] },
+            { word: 'bok', emoji: '📖', distractors: ['bak', 'buk', 'bok'] },
+            { word: 'fågel', emoji: '🐦', distractors: ['fogel', 'fågal', 'fögel'] },
+            { word: 'blomma', emoji: '🌸', distractors: ['bloma', 'blomba', 'blumma'] },
+            { word: 'glass', emoji: '🍦', distractors: ['glas', 'gläss', 'glaas'] },
+            { word: 'mus', emoji: '🐭', distractors: ['hus', 'mas', 'mys'] },
+            { word: 'ko', emoji: '🐮', distractors: ['ku', 'kå', 'kö'] },
+            { word: 'get', emoji: '🐐', distractors: ['gät', 'jet', 'gat'] },
+            { word: 'bröd', emoji: '🍞', distractors: ['bred', 'bröt', 'bryd'] },
+            { word: 'ost', emoji: '🧀', distractors: ['öst', 'ust', 'ast'] },
+            { word: 'penna', emoji: '✏️', distractors: ['pena', 'panna', 'pänna'] }
+        ];
+
+        let currentWord;
+        let score = 0;
+        let streak = 0;
+        let answered = false;
+
+        function shuffle(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function newRound() {
+            answered = false;
+            currentWord = words[Math.floor(Math.random() * words.length)];
+
+            document.getElementById('image').textContent = currentWord.emoji;
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('feedback').className = 'feedback';
+
+            const options = shuffle([currentWord.word, ...currentWord.distractors]);
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-button';
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option, button);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedWord, button) {
+            if (answered) return;
+            answered = true;
+
+            const allButtons = document.querySelectorAll('.option-button');
+
+            if (selectedWord === currentWord.word) {
+                button.classList.add('correct');
+                document.getElementById('feedback').textContent = '🎉 Rätt! Bra jobbat!';
+                document.getElementById('feedback').className = 'feedback correct';
+                score += 10;
+                streak += 1;
+
+                // Highlight correct answer
+                allButtons.forEach(btn => {
+                    if (btn.textContent === currentWord.word) {
+                        btn.classList.add('correct');
+                    }
+                });
+            } else {
+                button.classList.add('wrong');
+                document.getElementById('feedback').textContent = '❌ Försök igen! Det var ' + currentWord.word;
+                document.getElementById('feedback').className = 'feedback wrong';
+                streak = 0;
+
+                // Show correct answer
+                allButtons.forEach(btn => {
+                    if (btn.textContent === currentWord.word) {
+                        btn.classList.add('correct');
+                    }
+                });
+            }
+
+            document.getElementById('score').textContent = score;
+            document.getElementById('streak').textContent = streak;
+        }
+
+        // Start the game
+        newRound();
+    </script>
+</body>
+</html>

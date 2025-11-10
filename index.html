@@ -104,6 +104,7 @@
             font-family: Arial, Verdana, sans-serif;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             text-transform: uppercase;
+            transform: translateY(0);
         }
 
         .option-button:hover {
@@ -117,12 +118,14 @@
 
         .option-button.correct {
             background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-            animation: pulse 0.5s ease-in-out;
+            animation: pulse 0.5s ease-in-out forwards;
+            transform: translateY(0);
         }
 
         .option-button.wrong {
             background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
-            animation: shake 0.5s ease-in-out;
+            animation: shake 0.5s ease-in-out forwards;
+            transform: translateY(0);
         }
 
         @keyframes pulse {
@@ -156,6 +159,7 @@
             opacity: 0.5;
             cursor: not-allowed;
             pointer-events: none;
+            transform: translateY(0) !important;
         }
 
         @media (max-width: 480px) {

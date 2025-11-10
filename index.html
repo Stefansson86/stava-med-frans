@@ -104,14 +104,15 @@
             font-family: Arial, Verdana, sans-serif;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             text-transform: uppercase;
+            transform: translateY(0);
         }
 
-        .option-button:hover {
+        .option-button:hover:not(.disabled):not(.correct):not(.wrong) {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .option-button:active {
+        .option-button:active:not(.disabled):not(.correct):not(.wrong) {
             transform: translateY(-2px);
         }
 
@@ -126,14 +127,14 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.1) translateY(0); }
         }
 
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-10px) translateY(0); }
+            75% { transform: translateX(10px) translateY(0); }
         }
 
         .feedback {
@@ -152,24 +153,12 @@
             color: #eb3349;
         }
 
-        .new-game-btn {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 15px;
-            font-family: Arial, Verdana, sans-serif;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .new-game-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        .option-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+            transform: translateY(0) !important;
+            animation: none !important;
         }
 
         @media (max-width: 480px) {
@@ -202,8 +191,8 @@
                 <div class="score-value" id="score">0</div>
             </div>
             <div class="score-item">
-                <div class="score-label">I rad</div>
-                <div class="score-value" id="streak">0</div>
+                <div class="score-label">Stjärnor</div>
+                <div class="score-value" id="stars">0</div>
             </div>
         </div>
 
@@ -216,8 +205,6 @@
         </div>
 
         <div class="feedback" id="feedback"></div>
-
-        <button class="new-game-btn" onclick="newRound()">Nästa ord ➡️</button>
     </div>
 
     <script>
@@ -251,8 +238,8 @@
 
         let currentWord;
         let score = 0;
-        let streak = 0;
-        let answered = false;
+        let stars = 0;
+        let attempts = 0;
 
         function shuffle(array) {
             const newArray = [...array];
@@ -264,7 +251,7 @@
         }
 
         function newRound() {
-            answered = false;
+            attempts = 0;
             currentWord = words[Math.floor(Math.random() * words.length)];
 
             document.getElementById('image').textContent = currentWord.emoji;
@@ -273,52 +260,80 @@
 
             const options = shuffle([currentWord.word, ...currentWord.distractors]);
             const optionsContainer = document.getElementById('options');
+
+            // Force a complete reset by clearing and forcing reflow
             optionsContainer.innerHTML = '';
+            void optionsContainer.offsetHeight; // Force reflow
 
             options.forEach(option => {
                 const button = document.createElement('button');
                 button.className = 'option-button';
                 button.textContent = option;
                 button.onclick = () => checkAnswer(option, button);
+                // Explicitly set initial transform to ensure clean state
+                button.style.transform = 'translateY(0)';
                 optionsContainer.appendChild(button);
             });
         }
 
         function checkAnswer(selectedWord, button) {
-            if (answered) return;
-            answered = true;
-
-            const allButtons = document.querySelectorAll('.option-button');
+            attempts += 1;
 
             if (selectedWord === currentWord.word) {
+                const allButtons = document.querySelectorAll('.option-button');
+
                 button.classList.add('correct');
-                document.getElementById('feedback').textContent = '🎉 Rätt! Bra jobbat!';
+
+                // Calculate points based on attempts: 10, 5, 2, 1
+                let points = 0;
+                if (attempts === 1) {
+                    points = 10;
+                    stars += 1; // Get a star for getting it right on first try!
+                } else if (attempts === 2) {
+                    points = 5;
+                } else if (attempts === 3) {
+                    points = 2;
+                } else {
+                    points = 1;
+                }
+
+                score += points;
+
+                document.getElementById('feedback').textContent = '🎉 Rätt! +' + points + ' poäng!';
                 document.getElementById('feedback').className = 'feedback correct';
-                score += 10;
-                streak += 1;
 
                 // Highlight correct answer
                 allButtons.forEach(btn => {
                     if (btn.textContent.toLowerCase() === currentWord.word) {
                         btn.classList.add('correct');
                     }
+                    btn.classList.add('disabled');
+                    // Force reset transform and animation
+                    btn.style.transform = 'translateY(0)';
+                    btn.style.animation = 'none';
                 });
+
+                document.getElementById('score').textContent = score;
+                document.getElementById('stars').textContent = stars;
+
+                // Automatically load next word after 2 seconds
+                setTimeout(() => {
+                    newRound();
+                }, 2000);
             } else {
                 button.classList.add('wrong');
-                document.getElementById('feedback').textContent = '❌ Försök igen! Det var ' + currentWord.word.toUpperCase();
+                button.classList.add('disabled');
+                // Force reset transform and animation
+                button.style.transform = 'translateY(0)';
+                button.style.animation = 'none';
+
+                if (attempts === 1) {
+                    document.getElementById('feedback').textContent = '❌ Försök igen!';
+                } else {
+                    document.getElementById('feedback').textContent = '❌ Försök igen!';
+                }
                 document.getElementById('feedback').className = 'feedback wrong';
-                streak = 0;
-
-                // Show correct answer
-                allButtons.forEach(btn => {
-                    if (btn.textContent.toLowerCase() === currentWord.word) {
-                        btn.classList.add('correct');
-                    }
-                });
             }
-
-            document.getElementById('score').textContent = score;
-            document.getElementById('streak').textContent = streak;
         }
 
         // Start the game

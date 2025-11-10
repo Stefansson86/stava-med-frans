@@ -188,8 +188,8 @@
                 <div class="score-value" id="score">0</div>
             </div>
             <div class="score-item">
-                <div class="score-label">I rad</div>
-                <div class="score-value" id="streak">0</div>
+                <div class="score-label">Stjärnor</div>
+                <div class="score-value" id="stars">0</div>
             </div>
         </div>
 
@@ -235,7 +235,7 @@
 
         let currentWord;
         let score = 0;
-        let streak = 0;
+        let stars = 0;
         let attempts = 0;
 
         function shuffle(array) {
@@ -278,13 +278,18 @@
 
                 // Calculate points based on attempts: 10, 5, 2, 1
                 let points = 0;
-                if (attempts === 1) points = 10;
-                else if (attempts === 2) points = 5;
-                else if (attempts === 3) points = 2;
-                else points = 1;
+                if (attempts === 1) {
+                    points = 10;
+                    stars += 1; // Get a star for getting it right on first try!
+                } else if (attempts === 2) {
+                    points = 5;
+                } else if (attempts === 3) {
+                    points = 2;
+                } else {
+                    points = 1;
+                }
 
                 score += points;
-                streak += 1;
 
                 document.getElementById('feedback').textContent = '🎉 Rätt! +' + points + ' poäng!';
                 document.getElementById('feedback').className = 'feedback correct';
@@ -298,7 +303,7 @@
                 });
 
                 document.getElementById('score').textContent = score;
-                document.getElementById('streak').textContent = streak;
+                document.getElementById('stars').textContent = stars;
 
                 // Automatically load next word after 2 seconds
                 setTimeout(() => {

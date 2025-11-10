@@ -107,7 +107,7 @@
             transform: translateY(0);
         }
 
-        .option-button:hover {
+        .option-button:hover:not(.disabled):not(.correct):not(.wrong) {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
@@ -119,24 +119,22 @@
         .option-button.correct {
             background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
             animation: pulse 0.5s ease-in-out forwards;
-            transform: translateY(0);
         }
 
         .option-button.wrong {
             background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
             animation: shake 0.5s ease-in-out forwards;
-            transform: translateY(0);
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.1) translateY(0); }
         }
 
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-10px) translateY(0); }
+            75% { transform: translateX(10px) translateY(0); }
         }
 
         .feedback {

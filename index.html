@@ -118,12 +118,12 @@
 
         .option-button.correct {
             background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-            animation: pulse 0.5s ease-in-out forwards;
+            animation: pulse 0.5s ease-in-out;
         }
 
         .option-button.wrong {
             background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
-            animation: shake 0.5s ease-in-out forwards;
+            animation: shake 0.5s ease-in-out;
         }
 
         @keyframes pulse {
@@ -259,7 +259,10 @@
 
             const options = shuffle([currentWord.word, ...currentWord.distractors]);
             const optionsContainer = document.getElementById('options');
+
+            // Force a complete reset by clearing and forcing reflow
             optionsContainer.innerHTML = '';
+            void optionsContainer.offsetHeight; // Force reflow
 
             options.forEach(option => {
                 const button = document.createElement('button');

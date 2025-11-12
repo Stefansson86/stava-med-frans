@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: Arial, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -24,18 +24,19 @@
 
         .game-container {
             background: white;
-            border-radius: 30px;
+            border-radius: 12px;
             padding: 30px;
             max-width: 500px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
         }
 
         h1 {
             text-align: center;
-            color: #667eea;
+            color: #6366f1;
             margin-bottom: 20px;
             font-size: 2em;
+            font-weight: 700;
         }
 
         .hidden {
@@ -60,44 +61,44 @@
         }
 
         .menu-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
             border: none;
-            border-radius: 15px;
+            border-radius: 8px;
             padding: 30px 20px;
             font-size: 1.5em;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: Arial, Verdana, sans-serif;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
             transform: translateY(0);
         }
 
         .menu-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
         }
 
         .menu-button:active {
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
 
         /* Back Button */
         .back-button {
-            background: #888;
+            background: #64748b;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 6px;
             padding: 10px 20px;
             font-size: 1em;
+            font-weight: 500;
             cursor: pointer;
             margin-bottom: 20px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .back-button:hover {
-            background: #666;
+            background: #475569;
         }
 
         /* Common Game Styles */
@@ -106,8 +107,8 @@
             justify-content: space-around;
             margin-bottom: 20px;
             padding: 15px;
-            background: #f0f0f0;
-            border-radius: 15px;
+            background: #f1f5f9;
+            border-radius: 8px;
         }
 
         .score-item {
@@ -121,13 +122,13 @@
 
         .score-value {
             font-size: 1.8em;
-            font-weight: bold;
-            color: #667eea;
+            font-weight: 700;
+            color: #6366f1;
         }
 
         .image-container {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            border-radius: 20px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 100%);
+            border-radius: 10px;
             padding: 25px;
             text-align: center;
             margin-bottom: 20px;
@@ -156,37 +157,36 @@
         }
 
         .option-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
             border: none;
-            border-radius: 15px;
+            border-radius: 8px;
             padding: 30px 20px;
             font-size: 1.5em;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: Arial, Verdana, sans-serif;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
             text-transform: uppercase;
             transform: translateY(0);
         }
 
         .option-button:hover:not(.disabled):not(.correct):not(.wrong) {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
         }
 
         .option-button:active:not(.disabled):not(.correct):not(.wrong) {
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
 
         .option-button.correct {
-            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
             animation: pulse 0.5s ease-in-out;
         }
 
         .option-button.wrong {
-            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
             animation: shake 0.5s ease-in-out;
         }
 
@@ -222,13 +222,13 @@
         .letter-slot {
             width: 40px;
             height: 50px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid #6366f1;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2em;
-            font-weight: bold;
-            color: #667eea;
+            font-weight: 700;
+            color: #6366f1;
         }
 
         .letter-buttons {
@@ -239,37 +239,36 @@
         }
 
         .letter-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
             border: none;
-            border-radius: 15px;
+            border-radius: 8px;
             padding: 30px 20px;
             font-size: 2em;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: Arial, Verdana, sans-serif;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
             text-transform: uppercase;
             transform: translateY(0);
         }
 
         .letter-button:hover:not(.disabled):not(.correct):not(.wrong) {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
         }
 
         .letter-button:active:not(.disabled):not(.correct):not(.wrong) {
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
 
         .letter-button.correct {
-            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
             animation: pulse 0.5s ease-in-out;
         }
 
         .letter-button.wrong {
-            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
             animation: shake 0.5s ease-in-out;
         }
 
@@ -290,11 +289,11 @@
         }
 
         .feedback.correct {
-            color: #56ab2f;
+            color: #10b981;
         }
 
         .feedback.wrong {
-            color: #eb3349;
+            color: #ef4444;
         }
 
         @media (max-width: 480px) {

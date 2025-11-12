@@ -29,7 +29,6 @@
             max-width: 500px;
             width: 100%;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            position: relative;
         }
 
         h1 {
@@ -86,28 +85,23 @@
 
         /* Back Button */
         .back-button {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(99, 102, 241, 0.1);
+            background: none;
             color: #6366f1;
-            border: 2px solid #6366f1;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.2em;
+            border: none;
+            font-size: 0.95em;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            margin-top: 10px;
+            opacity: 0.7;
         }
 
         .back-button:hover {
-            background: #6366f1;
-            color: white;
-            transform: scale(1.1);
+            opacity: 1;
+            text-decoration: underline;
         }
 
         /* Common Game Styles */
@@ -333,14 +327,6 @@
                 height: 40px;
                 font-size: 1.5em;
             }
-
-            .back-button {
-                width: 36px;
-                height: 36px;
-                font-size: 1em;
-                top: 12px;
-                left: 12px;
-            }
         }
     </style>
 </head>
@@ -363,8 +349,6 @@
 
         <!-- Match Words Game (Original Game) -->
         <div id="match-words-game" class="hidden">
-            <button class="back-button" onclick="showMenu()">←</button>
-
             <div class="score-board">
                 <div class="score-item">
                     <div class="score-label">Poäng</div>
@@ -385,12 +369,12 @@
             </div>
 
             <div class="feedback" id="match-feedback"></div>
+
+            <button class="back-button" onclick="showMenu()">← Tillbaka till meny</button>
         </div>
 
         <!-- Spell With Frans Game (New Game) -->
         <div id="spell-game" class="hidden">
-            <button class="back-button" onclick="showMenu()">←</button>
-
             <div class="score-board">
                 <div class="score-item">
                     <div class="score-label">Poäng</div>
@@ -415,6 +399,8 @@
             </div>
 
             <div class="feedback" id="spell-feedback"></div>
+
+            <button class="back-button" onclick="showMenu()">← Tillbaka till meny</button>
         </div>
     </div>
 

@@ -38,6 +38,69 @@
             font-size: 2em;
         }
 
+        .hidden {
+            display: none !important;
+        }
+
+        /* Menu Styles */
+        .menu-container {
+            text-align: center;
+        }
+
+        .menu-title {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .menu-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 30px 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: Arial, Verdana, sans-serif;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(0);
+        }
+
+        .menu-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-button:active {
+            transform: translateY(-2px);
+        }
+
+        /* Back Button */
+        .back-button {
+            background: #888;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #666;
+        }
+
+        /* Common Game Styles */
         .score-board {
             display: flex;
             justify-content: space-around;
@@ -84,6 +147,7 @@
             50% { transform: translateY(-20px); }
         }
 
+        /* Match Words Game Styles */
         .options-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -137,6 +201,86 @@
             75% { transform: translateX(10px) translateY(0); }
         }
 
+        .option-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+            transform: translateY(0) !important;
+            animation: none !important;
+        }
+
+        /* Spell With Frans Game Styles */
+        .word-display {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            min-height: 60px;
+            align-items: center;
+        }
+
+        .letter-slot {
+            width: 40px;
+            height: 50px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .letter-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .letter-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 30px 20px;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: Arial, Verdana, sans-serif;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            transform: translateY(0);
+        }
+
+        .letter-button:hover:not(.disabled):not(.correct):not(.wrong) {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .letter-button:active:not(.disabled):not(.correct):not(.wrong) {
+            transform: translateY(-2px);
+        }
+
+        .letter-button.correct {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        .letter-button.wrong {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .letter-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+            transform: translateY(0) !important;
+            animation: none !important;
+        }
+
         .feedback {
             text-align: center;
             font-size: 1.5em;
@@ -153,14 +297,6 @@
             color: #eb3349;
         }
 
-        .option-button.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
-            transform: translateY(0) !important;
-            animation: none !important;
-        }
-
         @media (max-width: 480px) {
             .game-container {
                 padding: 20px;
@@ -174,9 +310,20 @@
                 font-size: 6em;
             }
 
-            .option-button {
+            .option-button, .letter-button {
                 padding: 20px 10px;
                 font-size: 1.2em;
+            }
+
+            .menu-button {
+                font-size: 1.2em;
+                padding: 25px 15px;
+            }
+
+            .letter-slot {
+                width: 30px;
+                height: 40px;
+                font-size: 1.5em;
             }
         }
     </style>
@@ -185,26 +332,74 @@
     <div class="game-container">
         <h1>🌟 Stava med Frans 🌟</h1>
 
-        <div class="score-board">
-            <div class="score-item">
-                <div class="score-label">Poäng</div>
-                <div class="score-value" id="score">0</div>
+        <!-- Main Menu -->
+        <div id="menu" class="menu-container">
+            <p class="menu-title">Välj ett spel att spela:</p>
+            <div class="menu-buttons">
+                <button class="menu-button" onclick="startGame('match-words')">
+                    🎯 Para ord med bild
+                </button>
+                <button class="menu-button" onclick="startGame('spell-with-frans')">
+                    ✏️ Stava med Frans
+                </button>
             </div>
-            <div class="score-item">
-                <div class="score-label">Stjärnor</div>
-                <div class="score-value" id="stars">0</div>
+        </div>
+
+        <!-- Match Words Game (Original Game) -->
+        <div id="match-words-game" class="hidden">
+            <button class="back-button" onclick="showMenu()">⬅️ Tillbaka till meny</button>
+
+            <div class="score-board">
+                <div class="score-item">
+                    <div class="score-label">Poäng</div>
+                    <div class="score-value" id="match-score">0</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-label">Stjärnor</div>
+                    <div class="score-value" id="match-stars">0</div>
+                </div>
             </div>
+
+            <div class="image-container">
+                <div class="image-emoji" id="match-image">🚗</div>
+            </div>
+
+            <div class="options-container" id="match-options">
+                <!-- Options will be inserted here by JavaScript -->
+            </div>
+
+            <div class="feedback" id="match-feedback"></div>
         </div>
 
-        <div class="image-container">
-            <div class="image-emoji" id="image">🚗</div>
-        </div>
+        <!-- Spell With Frans Game (New Game) -->
+        <div id="spell-game" class="hidden">
+            <button class="back-button" onclick="showMenu()">⬅️ Tillbaka till meny</button>
 
-        <div class="options-container" id="options">
-            <!-- Options will be inserted here by JavaScript -->
-        </div>
+            <div class="score-board">
+                <div class="score-item">
+                    <div class="score-label">Poäng</div>
+                    <div class="score-value" id="spell-score">0</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-label">Stjärnor</div>
+                    <div class="score-value" id="spell-stars">0</div>
+                </div>
+            </div>
 
-        <div class="feedback" id="feedback"></div>
+            <div class="image-container">
+                <div class="image-emoji" id="spell-image">🚗</div>
+            </div>
+
+            <div class="word-display" id="word-display">
+                <!-- Letter slots will be inserted here -->
+            </div>
+
+            <div class="letter-buttons" id="letter-buttons">
+                <!-- Letter buttons will be inserted here by JavaScript -->
+            </div>
+
+            <div class="feedback" id="spell-feedback"></div>
+        </div>
     </div>
 
     <script>
@@ -236,11 +431,24 @@
             { word: 'måne', emoji: '🌙', distractors: ['sol', 'stjärna', 'moln'] }
         ];
 
-        let currentWord;
-        let score = 0;
-        let stars = 0;
-        let attempts = 0;
+        // Game state
+        let currentGameMode = 'menu';
 
+        // Match Words Game state
+        let matchCurrentWord;
+        let matchScore = 0;
+        let matchStars = 0;
+        let matchAttempts = 0;
+
+        // Spell With Frans Game state
+        let spellCurrentWord;
+        let spellScore = 0;
+        let spellStars = 0;
+        let spellCurrentLetterIndex = 0;
+        let spellGuessedLetters = [];
+        let spellAttempts = 0;
+
+        // Utility function
         function shuffle(array) {
             const newArray = [...array];
             for (let i = newArray.length - 1; i > 0; i--) {
@@ -250,94 +458,241 @@
             return newArray;
         }
 
-        function newRound() {
-            attempts = 0;
-            currentWord = words[Math.floor(Math.random() * words.length)];
+        // Menu functions
+        function showMenu() {
+            document.getElementById('menu').classList.remove('hidden');
+            document.getElementById('match-words-game').classList.add('hidden');
+            document.getElementById('spell-game').classList.add('hidden');
+            currentGameMode = 'menu';
+        }
 
-            document.getElementById('image').textContent = currentWord.emoji;
-            document.getElementById('feedback').textContent = '';
-            document.getElementById('feedback').className = 'feedback';
+        function startGame(gameMode) {
+            currentGameMode = gameMode;
+            document.getElementById('menu').classList.add('hidden');
 
-            const options = shuffle([currentWord.word, ...currentWord.distractors]);
-            const optionsContainer = document.getElementById('options');
+            if (gameMode === 'match-words') {
+                document.getElementById('match-words-game').classList.remove('hidden');
+                matchScore = 0;
+                matchStars = 0;
+                document.getElementById('match-score').textContent = matchScore;
+                document.getElementById('match-stars').textContent = matchStars;
+                newMatchRound();
+            } else if (gameMode === 'spell-with-frans') {
+                document.getElementById('spell-game').classList.remove('hidden');
+                spellScore = 0;
+                spellStars = 0;
+                document.getElementById('spell-score').textContent = spellScore;
+                document.getElementById('spell-stars').textContent = spellStars;
+                newSpellRound();
+            }
+        }
 
-            // Force a complete reset by clearing and forcing reflow
+        // ===== MATCH WORDS GAME (Original Game) =====
+        function newMatchRound() {
+            matchAttempts = 0;
+            matchCurrentWord = words[Math.floor(Math.random() * words.length)];
+
+            document.getElementById('match-image').textContent = matchCurrentWord.emoji;
+            document.getElementById('match-feedback').textContent = '';
+            document.getElementById('match-feedback').className = 'feedback';
+
+            const options = shuffle([matchCurrentWord.word, ...matchCurrentWord.distractors]);
+            const optionsContainer = document.getElementById('match-options');
+
             optionsContainer.innerHTML = '';
-            void optionsContainer.offsetHeight; // Force reflow
+            void optionsContainer.offsetHeight;
 
             options.forEach(option => {
                 const button = document.createElement('button');
                 button.className = 'option-button';
                 button.textContent = option;
-                button.onclick = () => checkAnswer(option, button);
-                // Explicitly set initial transform to ensure clean state
+                button.onclick = () => checkMatchAnswer(option, button);
                 button.style.transform = 'translateY(0)';
                 optionsContainer.appendChild(button);
             });
         }
 
-        function checkAnswer(selectedWord, button) {
-            attempts += 1;
+        function checkMatchAnswer(selectedWord, button) {
+            matchAttempts += 1;
 
-            if (selectedWord === currentWord.word) {
+            if (selectedWord === matchCurrentWord.word) {
                 const allButtons = document.querySelectorAll('.option-button');
 
                 button.classList.add('correct');
 
-                // Calculate points based on attempts: 10, 5, 2, 1
                 let points = 0;
-                if (attempts === 1) {
+                if (matchAttempts === 1) {
                     points = 10;
-                    stars += 1; // Get a star for getting it right on first try!
-                } else if (attempts === 2) {
+                    matchStars += 1;
+                } else if (matchAttempts === 2) {
                     points = 5;
-                } else if (attempts === 3) {
+                } else if (matchAttempts === 3) {
                     points = 2;
                 } else {
                     points = 1;
                 }
 
-                score += points;
+                matchScore += points;
 
-                document.getElementById('feedback').textContent = '🎉 Rätt! +' + points + ' poäng!';
-                document.getElementById('feedback').className = 'feedback correct';
+                document.getElementById('match-feedback').textContent = '🎉 Rätt! +' + points + ' poäng!';
+                document.getElementById('match-feedback').className = 'feedback correct';
 
-                // Highlight correct answer
                 allButtons.forEach(btn => {
-                    if (btn.textContent.toLowerCase() === currentWord.word) {
+                    if (btn.textContent.toLowerCase() === matchCurrentWord.word) {
                         btn.classList.add('correct');
                     }
                     btn.classList.add('disabled');
-                    // Force reset transform and animation
                     btn.style.transform = 'translateY(0)';
                     btn.style.animation = 'none';
                 });
 
-                document.getElementById('score').textContent = score;
-                document.getElementById('stars').textContent = stars;
+                document.getElementById('match-score').textContent = matchScore;
+                document.getElementById('match-stars').textContent = matchStars;
 
-                // Automatically load next word after 2 seconds
                 setTimeout(() => {
-                    newRound();
+                    newMatchRound();
                 }, 2000);
             } else {
                 button.classList.add('wrong');
                 button.classList.add('disabled');
-                // Force reset transform and animation
                 button.style.transform = 'translateY(0)';
                 button.style.animation = 'none';
 
-                if (attempts === 1) {
-                    document.getElementById('feedback').textContent = '❌ Försök igen!';
-                } else {
-                    document.getElementById('feedback').textContent = '❌ Försök igen!';
-                }
-                document.getElementById('feedback').className = 'feedback wrong';
+                document.getElementById('match-feedback').textContent = '❌ Försök igen!';
+                document.getElementById('match-feedback').className = 'feedback wrong';
             }
         }
 
-        // Start the game
-        newRound();
+        // ===== SPELL WITH FRANS GAME (New Game) =====
+        function newSpellRound() {
+            spellAttempts = 0;
+            spellCurrentLetterIndex = 0;
+            spellCurrentWord = words[Math.floor(Math.random() * words.length)];
+            spellGuessedLetters = Array(spellCurrentWord.word.length).fill('');
+
+            document.getElementById('spell-image').textContent = spellCurrentWord.emoji;
+            document.getElementById('spell-feedback').textContent = '';
+            document.getElementById('spell-feedback').className = 'feedback';
+
+            // Display letter slots
+            displayWordSlots();
+
+            // Show letter options for first letter
+            showLetterOptions();
+        }
+
+        function displayWordSlots() {
+            const wordDisplay = document.getElementById('word-display');
+            wordDisplay.innerHTML = '';
+
+            for (let i = 0; i < spellCurrentWord.word.length; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'letter-slot';
+                slot.id = `slot-${i}`;
+                slot.textContent = spellGuessedLetters[i] || '';
+                wordDisplay.appendChild(slot);
+            }
+        }
+
+        function showLetterOptions() {
+            const correctLetter = spellCurrentWord.word[spellCurrentLetterIndex];
+
+            // Generate distractor letters (3 random letters that are not the correct one)
+            const alphabet = 'abcdefghijklmnopqrstuvwxyzåäö';
+            const distractors = [];
+
+            while (distractors.length < 3) {
+                const randomLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+                if (randomLetter !== correctLetter && !distractors.includes(randomLetter)) {
+                    distractors.push(randomLetter);
+                }
+            }
+
+            const letterOptions = shuffle([correctLetter, ...distractors]);
+            const letterButtonsContainer = document.getElementById('letter-buttons');
+
+            letterButtonsContainer.innerHTML = '';
+            void letterButtonsContainer.offsetHeight;
+
+            letterOptions.forEach(letter => {
+                const button = document.createElement('button');
+                button.className = 'letter-button';
+                button.textContent = letter.toUpperCase();
+                button.onclick = () => checkLetterAnswer(letter, button);
+                button.style.transform = 'translateY(0)';
+                letterButtonsContainer.appendChild(button);
+            });
+        }
+
+        function checkLetterAnswer(selectedLetter, button) {
+            const correctLetter = spellCurrentWord.word[spellCurrentLetterIndex];
+            spellAttempts += 1;
+
+            if (selectedLetter === correctLetter) {
+                button.classList.add('correct');
+
+                // Update the guessed letters array
+                spellGuessedLetters[spellCurrentLetterIndex] = correctLetter;
+
+                // Update the display
+                document.getElementById(`slot-${spellCurrentLetterIndex}`).textContent = correctLetter.toUpperCase();
+
+                // Disable all buttons
+                const allButtons = document.querySelectorAll('.letter-button');
+                allButtons.forEach(btn => {
+                    btn.classList.add('disabled');
+                    btn.style.transform = 'translateY(0)';
+                    btn.style.animation = 'none';
+                });
+
+                document.getElementById('spell-feedback').textContent = '✅ Rätt bokstav!';
+                document.getElementById('spell-feedback').className = 'feedback correct';
+
+                // Move to next letter or complete word
+                spellCurrentLetterIndex++;
+
+                if (spellCurrentLetterIndex >= spellCurrentWord.word.length) {
+                    // Word completed!
+                    let points = 0;
+                    if (spellAttempts === spellCurrentWord.word.length) {
+                        // Perfect! One try per letter
+                        points = 10;
+                        spellStars += 1;
+                    } else if (spellAttempts <= spellCurrentWord.word.length * 2) {
+                        points = 5;
+                    } else {
+                        points = 2;
+                    }
+
+                    spellScore += points;
+
+                    document.getElementById('spell-feedback').textContent = '🎉 Ordet klart! +' + points + ' poäng!';
+                    document.getElementById('spell-score').textContent = spellScore;
+                    document.getElementById('spell-stars').textContent = spellStars;
+
+                    setTimeout(() => {
+                        newSpellRound();
+                    }, 2000);
+                } else {
+                    // Move to next letter
+                    setTimeout(() => {
+                        document.getElementById('spell-feedback').textContent = '';
+                        showLetterOptions();
+                    }, 1000);
+                }
+            } else {
+                button.classList.add('wrong');
+                button.classList.add('disabled');
+                button.style.transform = 'translateY(0)';
+                button.style.animation = 'none';
+
+                document.getElementById('spell-feedback').textContent = '❌ Försök igen!';
+                document.getElementById('spell-feedback').className = 'feedback wrong';
+            }
+        }
+
+        // Initialize - show menu on start
+        showMenu();
     </script>
 </body>
 </html>

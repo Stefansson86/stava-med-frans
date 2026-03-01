@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stava med Frans - Lär dig stava!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="game-container">
+        <h1>Stava med Frans</h1>
+
+        <div class="score-board">
+            <div class="score-item">
+                <div class="score-label">Poäng</div>
+                <div class="score-value" id="score">0</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">Stjärnor</div>
+                <div class="score-value" id="stars">0</div>
+            </div>
+        </div>
+
+        <div class="image-container">
+            <div class="image-emoji" id="image">🚗</div>
+        </div>
+
+        <div class="word-slots-container" id="word-slots">
+            <!-- Blank letter slots will be inserted here -->
+        </div>
+
+        <div class="letter-pool-container" id="letter-pool">
+            <!-- Available letters will be inserted here -->
+        </div>
+
+        <div class="feedback" id="feedback">&nbsp;</div>
+
+        <div class="back-link">
+            <a href="index.html">&larr; Tillbaka till meny</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

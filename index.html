@@ -1,343 +1,64 @@
 <!DOCTYPE html>
 <html lang="sv">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stava med Frans - Lär dig stava!</title>
+    <title>Stava med Frans - Meny</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+        .menu-container {
             display: flex;
             flex-direction: column;
+            gap: 20px;
             align-items: center;
             justify-content: center;
+            margin-top: 50px;
+        }
+
+        .menu-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 300px;
             padding: 20px;
-        }
-
-        .game-container {
+            font-size: 1.5em;
+            font-weight: 800;
             background: white;
-            border-radius: 30px;
-            padding: 30px;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            font-family: 'Nunito', Arial, sans-serif;
         }
 
-        h1 {
-            text-align: center;
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
-
-        .score-board {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #f0f0f0;
-            border-radius: 15px;
-        }
-
-        .score-item {
-            text-align: center;
-        }
-
-        .score-label {
-            font-size: 0.9em;
-            color: #666;
-        }
-
-        .score-value {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .image-container {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            margin-bottom: 30px;
-            min-height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .image-emoji {
-            font-size: 8em;
-            animation: bounce 1s ease-in-out;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .options-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .option-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            padding: 30px 20px;
-            font-size: 1.5em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: Arial, Verdana, sans-serif;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            text-transform: uppercase;
-            transform: translateY(0);
-        }
-
-        .option-button:hover:not(.disabled):not(.correct):not(.wrong) {
+        .menu-button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .option-button:active:not(.disabled):not(.correct):not(.wrong) {
-            transform: translateY(-2px);
+        .menu-button.spell-game {
+            color: #71b87a;
+            border: 3px solid #71b87a;
         }
 
-        .option-button.correct {
-            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-            animation: pulse 0.5s ease-in-out;
-        }
-
-        .option-button.wrong {
-            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
-            animation: shake 0.5s ease-in-out;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1) translateY(0); }
-            50% { transform: scale(1.1) translateY(0); }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0) translateY(0); }
-            25% { transform: translateX(-10px) translateY(0); }
-            75% { transform: translateX(10px) translateY(0); }
-        }
-
-        .feedback {
-            text-align: center;
-            font-size: 1.5em;
-            font-weight: bold;
-            min-height: 40px;
-            margin-top: 20px;
-        }
-
-        .feedback.correct {
-            color: #56ab2f;
-        }
-
-        .feedback.wrong {
-            color: #eb3349;
-        }
-
-        .option-button.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
-            transform: translateY(0) !important;
-            animation: none !important;
-        }
-
-        @media (max-width: 480px) {
-            .game-container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 1.5em;
-            }
-
-            .image-emoji {
-                font-size: 6em;
-            }
-
-            .option-button {
-                padding: 20px 10px;
-                font-size: 1.2em;
-            }
+        .menu-button.match-game {
+            color: #8bb3e1;
+            border: 3px solid #8bb3e1;
         }
     </style>
 </head>
+
 <body>
     <div class="game-container">
-        <h1>🌟 Stava med Frans 🌟</h1>
+        <h1>Stava med Frans</h1>
 
-        <div class="score-board">
-            <div class="score-item">
-                <div class="score-label">Poäng</div>
-                <div class="score-value" id="score">0</div>
-            </div>
-            <div class="score-item">
-                <div class="score-label">Stjärnor</div>
-                <div class="score-value" id="stars">0</div>
-            </div>
+        <div class="menu-container">
+            <a href="spelling.html" class="menu-button spell-game">✏️ Spela Stava</a>
+            <a href="match.html" class="menu-button match-game">🔍 Spela Gissa</a>
         </div>
-
-        <div class="image-container">
-            <div class="image-emoji" id="image">🚗</div>
-        </div>
-
-        <div class="options-container" id="options">
-            <!-- Options will be inserted here by JavaScript -->
-        </div>
-
-        <div class="feedback" id="feedback"></div>
     </div>
-
-    <script>
-        const words = [
-            { word: 'bil', emoji: '🚗', distractors: ['båt', 'buss', 'cykel'] },
-            { word: 'hund', emoji: '🐕', distractors: ['katt', 'bil', 'båt'] },
-            { word: 'katt', emoji: '🐱', distractors: ['hund', 'mus', 'fisk'] },
-            { word: 'sol', emoji: '☀️', distractors: ['måne', 'stjärna', 'moln'] },
-            { word: 'båt', emoji: '⛵', distractors: ['bil', 'tåg', 'plan'] },
-            { word: 'boll', emoji: '⚽', distractors: ['kub', 'ring', 'stjärna'] },
-            { word: 'äpple', emoji: '🍎', distractors: ['banan', 'päron', 'apelsin'] },
-            { word: 'hus', emoji: '🏠', distractors: ['träd', 'bil', 'båt'] },
-            { word: 'träd', emoji: '🌳', distractors: ['blomma', 'gräs', 'buske'] },
-            { word: 'fisk', emoji: '🐟', distractors: ['haj', 'val', 'krabba'] },
-            { word: 'bok', emoji: '📖', distractors: ['penna', 'sudd', 'linjal'] },
-            { word: 'fågel', emoji: '🐦', distractors: ['katt', 'hund', 'mus'] },
-            { word: 'blomma', emoji: '🌸', distractors: ['träd', 'gräs', 'buske'] },
-            { word: 'glass', emoji: '🍦', distractors: ['kaka', 'godis', 'choklad'] },
-            { word: 'mus', emoji: '🐭', distractors: ['katt', 'hund', 'fågel'] },
-            { word: 'ko', emoji: '🐮', distractors: ['häst', 'får', 'gris'] },
-            { word: 'get', emoji: '🐐', distractors: ['ko', 'häst', 'får'] },
-            { word: 'bröd', emoji: '🍞', distractors: ['smör', 'ost', 'skinka'] },
-            { word: 'ost', emoji: '🧀', distractors: ['bröd', 'smör', 'mjölk'] },
-            { word: 'penna', emoji: '✏️', distractors: ['sudd', 'linjal', 'bok'] },
-            { word: 'buss', emoji: '🚌', distractors: ['bil', 'tåg', 'båt'] },
-            { word: 'cykel', emoji: '🚲', distractors: ['bil', 'buss', 'tåg'] },
-            { word: 'banan', emoji: '🍌', distractors: ['äpple', 'päron', 'apelsin'] },
-            { word: 'pizza', emoji: '🍕', distractors: ['hamburgare', 'korv', 'pasta'] },
-            { word: 'måne', emoji: '🌙', distractors: ['sol', 'stjärna', 'moln'] }
-        ];
-
-        let currentWord;
-        let score = 0;
-        let stars = 0;
-        let attempts = 0;
-
-        function shuffle(array) {
-            const newArray = [...array];
-            for (let i = newArray.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-            }
-            return newArray;
-        }
-
-        function newRound() {
-            attempts = 0;
-            currentWord = words[Math.floor(Math.random() * words.length)];
-
-            document.getElementById('image').textContent = currentWord.emoji;
-            document.getElementById('feedback').textContent = '';
-            document.getElementById('feedback').className = 'feedback';
-
-            const options = shuffle([currentWord.word, ...currentWord.distractors]);
-            const optionsContainer = document.getElementById('options');
-
-            // Force a complete reset by clearing and forcing reflow
-            optionsContainer.innerHTML = '';
-            void optionsContainer.offsetHeight; // Force reflow
-
-            options.forEach(option => {
-                const button = document.createElement('button');
-                button.className = 'option-button';
-                button.textContent = option;
-                button.onclick = () => checkAnswer(option, button);
-                // Explicitly set initial transform to ensure clean state
-                button.style.transform = 'translateY(0)';
-                optionsContainer.appendChild(button);
-            });
-        }
-
-        function checkAnswer(selectedWord, button) {
-            attempts += 1;
-
-            if (selectedWord === currentWord.word) {
-                const allButtons = document.querySelectorAll('.option-button');
-
-                button.classList.add('correct');
-
-                // Calculate points based on attempts: 10, 5, 2, 1
-                let points = 0;
-                if (attempts === 1) {
-                    points = 10;
-                    stars += 1; // Get a star for getting it right on first try!
-                } else if (attempts === 2) {
-                    points = 5;
-                } else if (attempts === 3) {
-                    points = 2;
-                } else {
-                    points = 1;
-                }
-
-                score += points;
-
-                document.getElementById('feedback').textContent = '🎉 Rätt! +' + points + ' poäng!';
-                document.getElementById('feedback').className = 'feedback correct';
-
-                // Highlight correct answer
-                allButtons.forEach(btn => {
-                    if (btn.textContent.toLowerCase() === currentWord.word) {
-                        btn.classList.add('correct');
-                    }
-                    btn.classList.add('disabled');
-                    // Force reset transform and animation
-                    btn.style.transform = 'translateY(0)';
-                    btn.style.animation = 'none';
-                });
-
-                document.getElementById('score').textContent = score;
-                document.getElementById('stars').textContent = stars;
-
-                // Automatically load next word after 2 seconds
-                setTimeout(() => {
-                    newRound();
-                }, 2000);
-            } else {
-                button.classList.add('wrong');
-                button.classList.add('disabled');
-                // Force reset transform and animation
-                button.style.transform = 'translateY(0)';
-                button.style.animation = 'none';
-
-                if (attempts === 1) {
-                    document.getElementById('feedback').textContent = '❌ Försök igen!';
-                } else {
-                    document.getElementById('feedback').textContent = '❌ Försök igen!';
-                }
-                document.getElementById('feedback').className = 'feedback wrong';
-            }
-        }
-
-        // Start the game
-        newRound();
-    </script>
 </body>
+
 </html>

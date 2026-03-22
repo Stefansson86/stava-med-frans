@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stava med Frans - Räkna!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .option-button {
+            background: white;
+            border-radius: 12px;
+            padding: 25px 10px;
+            font-size: 2.5em;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Nunito', Arial, sans-serif;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 4 distinct pastel borders */
+        .option-button:nth-child(1) {
+            border: 3px solid #71b87a;
+            color: #71b87a;
+        }
+
+        .option-button:nth-child(1):hover {
+            background: #71b87a;
+            color: white;
+        }
+
+        .option-button:nth-child(2) {
+            border: 3px solid #f6a623;
+            color: #f6a623;
+        }
+
+        .option-button:nth-child(2):hover {
+            background: #f6a623;
+            color: white;
+        }
+
+        .option-button:nth-child(3) {
+            border: 3px solid #b18bb3;
+            color: #b18bb3;
+        }
+
+        .option-button:nth-child(3):hover {
+            background: #b18bb3;
+            color: white;
+        }
+
+        .option-button:nth-child(4) {
+            border: 3px solid #8bb3e1;
+            color: #8bb3e1;
+        }
+
+        .option-button:nth-child(4):hover {
+            background: #8bb3e1;
+            color: white;
+        }
+
+        .option-button.wrong {
+            background-color: #eb3349 !important;
+            color: white !important;
+            border-color: #eb3349 !important;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .option-button.correct {
+            background-color: #71b87a !important;
+            color: white !important;
+            border-color: #71b87a !important;
+            animation: pulse 0.5s ease-in-out;
+            transform: scale(1.05);
+        }
+
+        .math-problem {
+            font-size: 5em;
+            font-weight: 800;
+            color: #4a5568;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game-container">
+        <h1>Räkna med Frans</h1>
+
+        <div class="score-board">
+            <div class="score-item">
+                <div class="score-label">Poäng</div>
+                <div class="score-value" id="score">0</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">Stjärnor</div>
+                <div class="score-value" id="stars">0</div>
+            </div>
+        </div>
+
+        <div class="image-container">
+            <div class="math-problem" id="math-problem">5 + 2</div>
+        </div>
+
+        <div class="options-container" id="options">
+            <!-- Math options will be inserted here -->
+        </div>
+
+        <div class="feedback" id="feedback">&nbsp;</div>
+
+        <div class="back-link">
+            <a href="index.html">&larr; Tillbaka till meny</a>
+        </div>
+    </div>
+
+    <script src="math.js"></script>
+</body>
+
+</html>

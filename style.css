@@ -29,7 +29,7 @@ body {
 h1 {
     text-align: center;
     color: #8bb3e1;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     font-size: 3em;
     font-weight: 800;
 }
@@ -60,10 +60,10 @@ h1 {
 .image-container {
     background: white;
     border-radius: 10px;
-    padding: 40px;
+    padding: 30px;
     text-align: center;
-    margin-bottom: 25px;
-    min-height: 250px;
+    margin-bottom: 20px;
+    min-height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -90,9 +90,9 @@ h1 {
 .word-slots-container {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px;
-    min-height: 70px;
+    gap: 8px;
+    margin-bottom: 20px;
+    min-height: 60px;
 }
 
 .letter-slot {
@@ -256,22 +256,46 @@ h1 {
 }
 
 @media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
     h1 {
-        font-size: 2.2em;
+        font-size: 2em;
+        margin-bottom: 15px;
+    }
+
+    .image-container {
+        padding: 20px;
+        min-height: 150px;
+        margin-bottom: 15px;
     }
 
     .image-emoji {
-        font-size: 6em;
+        font-size: 5em;
+    }
+
+    .math-problem {
+        font-size: 3.5em;
     }
 
     .letter-slot {
-        width: 45px;
-        height: 55px;
-        font-size: 1.8em;
+        width: 40px;
+        height: 50px;
+        font-size: 1.6em;
     }
 
     .letter-button {
-        padding: 15px 10px;
+        padding: 12px 8px;
+        font-size: 1.4em;
+    }
+
+    .options-container {
+        gap: 10px;
+    }
+
+    .option-button {
+        padding: 15px 8px;
         font-size: 1.5em;
     }
 }
